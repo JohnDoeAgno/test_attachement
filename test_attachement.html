@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>إختبار نمط التعلق - بوصلة العلاقات</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans Arabic', sans-serif;
+            background: #070b14;
+            color: #cbd5e1;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+        }
+
+        .main-container {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .glass-card {
+            background: linear-gradient(145deg, #111827, #1e293b);
+            border: 1px solid #334155;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border-radius: 24px;
+            padding: 40px;
+        }
+
+        .scenario-label {
+            display: inline-block;
+            background: #fbbf24;
+            color: #000;
+            font-weight: 900;
+            padding: 4px 15px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .question-text {
+            font-size: 1.6rem; /* خط كبير ومريح جداً */
+            font-weight: 700;
+            line-height: 1.6;
+            color: #f8fafc;
+            margin-bottom: 30px;
+        }
+
+        .option-btn {
+            width: 100%;
+            background: rgba(30, 41, 59, 0.5);
+            border: 2px solid #334155;
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin-bottom: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #94a3b8;
+            text-align: right;
+        }
+
+        .option-btn:hover {
+            border-color: #fbbf24;
+            background: rgba(251, 191, 36, 0.05);
+            color: #fbbf24;
+            transform: translateX(-5px);
+        }
+
+        .option-num {
+            font-family: sans-serif;
+            opacity: 0.3;
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background: #1e293b;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #fbbf24, #f59e0b);
+            transition: width 0.3s ease;
+        }
+
+        .result-bar-bg {
+            height: 12px;
+            background: #1e293b;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .result-bar-fill {
+            height: 100%;
+            transition: width 1s ease-out;
+        }
+
+        .signature {
+            margin-top: 60px;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #1e293b;
+        }
+
+        .signature-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-start {
+            background: #fbbf24;
+            color: #070b14;
+            font-weight: 900;
+            font-size: 1.3rem;
+            padding: 22px 45px;
+            border-radius: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(251, 191, 36, 0.2);
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+
+    <div class="main-container">
+        
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="glass-card text-center">
+            <div class="mb-8 inline-block p-6 bg-yellow-500/10 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-black text-white mb-6">بوصلة العلاقات</h1>
+            <p class="text-slate-400 text-xl mb-10 leading-relaxed">
+                اكتشف نمط تعلقك العاطفي من خلال اختبار دقيق مبني على 68 معياراً نفسياً. افهم كيف تتعامل مع القرب، الاستقلال، والأمان.
+            </p>
+            <button onclick="startQuiz()" class="btn-start w-full sm:w-auto">
+                ابدأ الاختبار الآن
+            </button>
+        </div>
+
+        <!-- Question Screen -->
+        <div id="question-screen" class="hidden">
+            <div class="progress-container">
+                <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
+            </div>
+            
+            <div class="glass-card">
+                <div class="flex justify-between items-center mb-6">
+                    <span id="category-name" class="scenario-label">جاري التحليل</span>
+                    <span id="q-counter" class="text-slate-500 font-bold font-mono text-lg">01 / 68</span>
+                </div>
+                
+                <h2 id="question-text" class="question-text"></h2>
+                
+                <div id="options-container">
+                    <button onclick="recordAnswer(1)" class="option-btn"><span>لا ينطبق أبداً</span> <span class="option-num">1</span></button>
+                    <button onclick="recordAnswer(2)" class="option-btn"><span>ينطبق قليلاً</span> <span class="option-num">2</span></button>
+                    <button onclick="recordAnswer(3)" class="option-btn"><span>ينطبق أحياناً</span> <span class="option-num">3</span></button>
+                    <button onclick="recordAnswer(4)" class="option-btn"><span>ينطبق كثيراً</span> <span class="option-num">4</span></button>
+                    <button onclick="recordAnswer(5)" class="option-btn"><span>ينطبق تماماً</span> <span class="option-num">5</span></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result Screen -->
+        <div id="result-screen" class="hidden glass-card text-center">
+            <div class="scenario-label" style="background: #3b82f6; color: white;">تحليل النتيجة</div>
+            <h2 id="primary-style" class="text-4xl font-black text-white mb-4"></h2>
+            
+            <div id="confidence-badge" class="inline-block px-4 py-2 rounded-lg text-sm font-bold mb-10 bg-yellow-500/10 text-yellow-500">تحليل شامل لـ 68 نقطة</div>
+
+            <div class="grid gap-6 mb-10">
+                <div class="text-right">
+                    <div class="flex justify-between text-base font-bold text-slate-400 mb-2"><span>النمط الآمن</span><span id="pct-safe">0%</span></div>
+                    <div class="result-bar-bg"><div id="bar-safe" class="result-bar-fill bg-green-500" style="width: 0%"></div></div>
+                </div>
+                <div class="text-right">
+                    <div class="flex justify-between text-base font-bold text-slate-400 mb-2"><span>النمط القلق</span><span id="pct-anxious">0%</span></div>
+                    <div class="result-bar-bg"><div id="bar-anxious" class="result-bar-fill bg-amber-500" style="width: 0%"></div></div>
+                </div>
+                <div class="text-right">
+                    <div class="flex justify-between text-base font-bold text-slate-400 mb-2"><span>النمط التجنبي</span><span id="pct-avoidant">0%</span></div>
+                    <div class="result-bar-bg"><div id="bar-avoidant" class="result-bar-fill bg-blue-500" style="width: 0%"></div></div>
+                </div>
+                <div class="text-right">
+                    <div class="flex justify-between text-base font-bold text-slate-400 mb-2"><span>النمط المضطرب</span><span id="pct-disorganized">0%</span></div>
+                    <div class="result-bar-bg"><div id="bar-disorganized" class="result-bar-fill bg-rose-500" style="width: 0%"></div></div>
+                </div>
+            </div>
+
+            <div class="bg-slate-900/50 p-6 rounded-2xl border border-slate-800 text-right mb-8">
+                <p id="result-analysis" class="text-slate-300 leading-relaxed text-lg"></p>
+            </div>
+
+            <button onclick="location.reload()" class="text-slate-500 hover:text-white font-bold transition-all text-sm underline decoration-yellow-500 underline-offset-8">إعادة الاختبار بالكامل</button>
+        </div>
+
+        <!-- Signature -->
+        <footer class="signature">
+            <div class="signature-badge">
+                <span class="opacity-40">تم التطوير بواسطة</span>
+                <span class="text-yellow-500">IntriMind - John Doe</span>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // إعادة الأسئلة الـ 68 كاملة كما في النسخة الأصلية
+        const questions = [
+            // Safe Attachment Items
+            { cat: "الأمان", text: "أجد أنه من السهل نسبياً التقرب من الآخرين عاطفياً.", type: "safe" },
+            { cat: "الأمان", text: "أشعر بالراحة عند الاعتماد على الآخرين والاعتماد عليّ.", type: "safe" },
+            { cat: "الأمان", text: "لا أشعر بالقلق حيال كوني وحيداً أو عدم قبول الآخرين لي.", type: "safe" },
+            { cat: "الأمان", text: "أنا واثق من أن الآخرين سيتواجدون عندما أحتاج إليهم.", type: "safe" },
+            { cat: "الأمان", text: "أشعر بالراحة في مشاركة أفكاري ومشاعري مع الشريك.", type: "safe" },
+            { cat: "الأمان", text: "علاقاتي تتسم بالثقة المتبادلة والاستقرار.", type: "safe" },
+            { cat: "الأمان", text: "أستطيع التعبير عن احتياجاتي بوضوح دون خوف.", type: "safe" },
+            { cat: "الأمان", text: "لا أشعر بالتهديد من استقلالية الشريك.", type: "safe" },
+            { cat: "الأمان", text: "أميل إلى رؤية النوايا الحسنة في تصرفات الآخرين.", type: "safe" },
+            { cat: "الأمان", text: "أتعامل مع الخلافات بهدوء وموضوعية.", type: "safe" },
+            { cat: "الأمان", text: "أشعر بالرضا العام عن حياتي العاطفية.", type: "safe" },
+            { cat: "الأمان", text: "أعتقد أنني أستحق الحب والاحترام.", type: "safe" },
+            { cat: "الأمان", text: "أوازن جيداً بين وقتي الخاص ووقت العلاقة.", type: "safe" },
+            { cat: "الأمان", text: "أشعر بالأمان حتى عندما يبتعد الشريك لفترة.", type: "safe" },
+            { cat: "الأمان", text: "أستمتع بالقرب دون الشعور بالاختناق.", type: "safe" },
+            { cat: "الأمان", text: "أستجيب بمرونة لتغيرات الحياة مع الشريك.", type: "safe" },
+            { cat: "الأمان", text: "أستطيع تقديم الدعم العاطفي دون إهمال نفسي.", type: "safe" },
+
+            // Anxious Attachment Items
+            { cat: "القلق", text: "أريد أن أكون قريباً جداً من الآخرين، لكنهم لا يستجيبون دائماً.", type: "anxious" },
+            { cat: "القلق", text: "غالباً ما أقلق من أن الشريك لا يحبني حقاً أو قد يتركني.", type: "anxious" },
+            { cat: "القلق", text: "أشعر بالاستياء عندما لا يقدم لي الآخرون نفس القدر من الاهتمام.", type: "anxious" },
+            { cat: "القلق", text: "أحتاج إلى الكثير من التأكيدات بأنني محبوب.", type: "anxious" },
+            { cat: "القلق", text: "أميل إلى لوم نفسي عندما تسوء الأمور في العلاقة.", type: "anxious" },
+            { cat: "القلق", text: "أشعر بالقلق الشديد عندما لا يرد الشريك على رسائلي بسرعة.", type: "anxious" },
+            { cat: "القلق", text: "أفكر في العلاقة بشكل مهووس أحياناً.", type: "anxious" },
+            { cat: "القلق", text: "أشعر بالغيرة بسرعة إذا اهتم الشريك بشخص آخر.", type: "anxious" },
+            { cat: "القلق", text: "أوافق على أشياء لا أحبها فقط لإرضاء الشريك.", type: "anxious" },
+            { cat: "القلق", text: "أشعر بالفراغ الشديد عندما أكون وحيداً.", type: "anxious" },
+            { cat: "القلق", text: "أبالغ في تحليل كلمات وتصرفات الشريك بحثاً عن معانٍ خفية.", type: "anxious" },
+            { cat: "القلق", text: "أشعر أنني أحب الآخرين أكثر مما يحبونني.", type: "anxious" },
+            { cat: "القلق", text: "أخاف من التعبير عن غضبي لئلا يبتعد الشريك.", type: "anxious" },
+            { cat: "القلق", text: "أشعر بالحاجة للالتصاق بالشريك عندما أشعر بعدم الأمان.", type: "anxious" },
+            { cat: "القلق", text: "تقديري لذاتي يعتمد بشكل كبير على رأي الشريك فيّ.", type: "anxious" },
+            { cat: "القلق", text: "أبذل جهداً هائلاً لتجنب أي نوع من الهجر.", type: "anxious" },
+            { cat: "القلق", text: "أشعر بأنني 'كثير' أو متطلب عاطفياً على الآخرين.", type: "anxious" },
+
+            // Avoidant Attachment Items
+            { cat: "التجنب", text: "أشعر بعدم الارتياح عندما يحاول الآخرون الاقتراب مني كثيراً.", type: "avoidant" },
+            { cat: "التجنب", text: "من المهم جداً بالنسبة لي أن أكون مستقلاً تماماً.", type: "avoidant" },
+            { cat: "التجنب", text: "أفضل عدم الاعتماد على الآخرين أو السماح لهم بالاعتماد عليّ.", type: "avoidant" },
+            { cat: "التجنب", text: "أميل إلى إخفاء مشاعري الحقيقية عن الشريك.", type: "avoidant" },
+            { cat: "التجنب", text: "أشعر بالاختناق عندما تطالبني العلاقة بالكثير من الوقت.", type: "avoidant" },
+            { cat: "التجنب", text: "أجد صعوبة في التعبير عن 'أحبك' أو مشاعر المودة.", type: "avoidant" },
+            { cat: "التجنب", text: "أفضل حل مشاكلي الشخصية بمفردي دائماً.", type: "avoidant" },
+            { cat: "التجنب", text: "أقلل من شأن أهمية العلاقات في حياتي.", type: "avoidant" },
+            { cat: "التجنب", text: "أنسحب عاطفياً عندما يبدأ الشريك في التحدث عن الالتزام.", type: "avoidant" },
+            { cat: "التجنب", text: "أشعر بالراحة أكثر في العلاقات السطحية أو غير الملزمة.", type: "avoidant" },
+            { cat: "التجنب", text: "أستخدم العمل أو الهوايات كطريقة لتجنب القرب العاطفي.", type: "avoidant" },
+            { cat: "التجنب", text: "أشعر أن الآخرين غالباً ما يحاولون تقييد حريتي.", type: "avoidant" },
+            { cat: "التجنب", text: "لا أثق تماماً في قدرة الآخرين على دعمي.", type: "avoidant" },
+            { cat: "التجنب", text: "أميل لرؤية الشريك كمزعج عندما يطلب الاهتمام.", type: "avoidant" },
+            { cat: "التجنب", text: "أحتفظ بأسرار أو جوانب من حياتي بعيداً عن الشريك.", type: "avoidant" },
+            { cat: "التجنب", text: "أشعر بالقوة عندما لا أحتاج أحداً عاطفياً.", type: "avoidant" },
+            { cat: "التجنب", text: "أقارن الشريك الحالي بـ 'شريك مثالي' خيالي للابتعاد عنه.", type: "avoidant" },
+
+            // Disorganized (Fearful-Avoidant) Items
+            { cat: "الاضطراب", text: "أريد علاقات وثيقة، لكنني أجد صعوبة في الثقة بالآخرين تماماً.", type: "disorganized" },
+            { cat: "الاضطراب", text: "أقلق من أنني سأتأذى إذا سمحت لنفسي بالتعلق بشخص ما.", type: "disorganized" },
+            { cat: "الاضطراب", text: "مشاعري تجاه الشريك تتأرجح بين الحب الشديد والكره المفاجئ.", type: "disorganized" },
+            { cat: "الاضطراب", text: "أشعر أحياناً بالرغبة في القرب، ثم أشعر فجأة بالرعب منه.", type: "disorganized" },
+            { cat: "الاضطراب", text: "علاقاتي تتسم بالدراما المستمرة والتقلبات العنيفة.", type: "disorganized" },
+            { cat: "الاضطراب", text: "أشعر أنني لا أستحق الحب وأن الآخرين سيؤذونني حتماً.", type: "disorganized" },
+            { cat: "الاضطراب", text: "أجد صعوبة في تنظيم عواطفي عندما أكون في صراع.", type: "disorganized" },
+            { cat: "الاضطراب", text: "غالباً ما أشعر بالتجمد أو الذهول في المواقف العاطفية الضاغطة.", type: "disorganized" },
+            { cat: "الاضطراب", text: "أميل إلى رؤية العالم كمكان خطر وغير متوقع.", type: "disorganized" },
+            { cat: "الاضطراب", text: "أشعر بالارتباك حول ما أشعر به تجاه الأشخاص المقربين.", type: "disorganized" },
+            { cat: "الاضطراب", text: "لدي ذكريات مؤلمة مرتبطة بالقرب العاطفي في الماضي.", type: "disorganized" },
+            { cat: "الاضطراب", text: "أشعر بأنني محاصر بين الحاجة للآخرين والخوف منهم.", type: "disorganized" },
+            { cat: "الاضطراب", text: "أقوم أحياناً بتخريب علاقاتي الجيدة دون أن أفهم السبب.", type: "disorganized" },
+            { cat: "الاضطراب", text: "أشعر بالفراغ أو الانفصال عن الواقع عندما يشتد التوتر العاطفي.", type: "disorganized" },
+            { cat: "الاضطراب", text: "أجد صعوبة في التعرف على إشارات الأمان في الآخرين.", type: "disorganized" },
+            { cat: "الاضطراب", text: "أشعر أنني 'مكسور' بطريقة لا يمكن إصلاحها.", type: "disorganized" },
+            { cat: "الاضطراب", text: "أحتاج للتحكم في كل شيء لتجنب الشعور بالضعف.", type: "disorganized" }
+        ];
+
+        let currentIdx = 0;
+        let userAnswers = [];
+
+        function startQuiz() {
+            document.getElementById('welcome-screen').classList.add('hidden');
+            document.getElementById('question-screen').classList.remove('hidden');
+            showQ();
+        }
+
+        function showQ() {
+            const q = questions[currentIdx];
+            document.getElementById('question-text').innerText = q.text;
+            document.getElementById('category-name').innerText = q.cat;
+            document.getElementById('q-counter').innerText = `${String(currentIdx + 1).padStart(2, '0')} / ${questions.length}`;
+            document.getElementById('progress-bar').style.width = `${(currentIdx / questions.length) * 100}%`;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function recordAnswer(v) {
+            userAnswers.push({ type: questions[currentIdx].type, val: v });
+            if (currentIdx < questions.length - 1) {
+                currentIdx++;
+                showQ();
+            } else {
+                processResults();
+            }
+        }
+
+        function processResults() {
+            let scores = { safe: 0, anxious: 0, avoidant: 0, disorganized: 0 };
+            let counts = { safe: 0, anxious: 0, avoidant: 0, disorganized: 0 };
+            
+            userAnswers.forEach(a => {
+                scores[a.type] += a.val;
+                counts[a.type]++;
+            });
+
+            const getPct = (t) => Math.round((scores[t] / (counts[t] * 5)) * 100);
+            const res = { safe: getPct('safe'), anxious: getPct('anxious'), avoidant: getPct('avoidant'), disorganized: getPct('disorganized') };
+
+            displayResults(res);
+        }
+
+        function displayResults(res) {
+            document.getElementById('question-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+            
+            ['safe', 'anxious', 'avoidant', 'disorganized'].forEach(t => {
+                document.getElementById(`pct-${t}`).innerText = res[t] + "%";
+                document.getElementById(`bar-${t}`).style.width = res[t] + "%";
+            });
+
+            let primary = 'safe';
+            if (res.anxious > res[primary]) primary = 'anxious';
+            if (res.avoidant > res[primary]) primary = 'avoidant';
+            if (res.disorganized > res[primary]) primary = 'disorganized';
+
+            const titles = { safe: "النمط الآمن", anxious: "النمط القلق", avoidant: "النمط التجنبي", disorganized: "النمط المضطرب" };
+            const analyses = {
+                safe: "أنت تمتلك أساساً قوياً من الأمان العاطفي. تستطيع الموازنة بين الحاجة للقرب والحفاظ على استقلاليتك، وتثق في نفسك وفي الآخرين.",
+                anxious: "نمطك يميل للقلق والحساسية العالية تجاه أي تغير في القرب العاطفي. تحتاج لتطمين مستمر وتخشى الهجر، مما قد يرهقك عاطفياً.",
+                avoidant: "تميل للحفاظ على مسافة أمان عاطفية وتعتبر الاعتماد على الآخرين ضعفاً. تقدس استقلاليتك وقد تبتعد عندما تصبح العلاقة جدية.",
+                disorganized: "نمطك يتسم بصراع داخلي بين الرغبة الشديدة في القرب والخوف الشديد من الأذى. هذا يسبب تقلبات عاطفية وصعوبة في الشعور بالأمان الاستقرار."
+            };
+
+            document.getElementById('primary-style').innerText = titles[primary];
+            document.getElementById('result-analysis').innerText = analyses[primary];
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
