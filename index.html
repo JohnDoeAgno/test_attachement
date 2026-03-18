@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>إختبار نمط التعلق - بوصلة العلاقات</title>
+    
+    <!-- Open Graph for Notion & Social Media -->
+    <meta property="og:title" content="إختبار نمط التعلق - بوصلة العلاقات">
+    <meta property="og:description" content="اكتشف نمط تعلقك العاطفي من خلال اختبار دقيق مبني على 68 معياراً نفسياً.">
+    <meta property="og:url" content="https://johndoeagno.github.io/test_attachement/">
+    <meta name="twitter:card" content="summary_large_image">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
@@ -13,20 +20,32 @@
             color: #cbd5e1;
             min-height: 100vh;
             scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .main-container {
-            max-width: 650px;
+            width: 95%; /* مرونة كاملة للجوال */
+            max-width: 650px; /* ثبات للشاشات الكبيرة */
             margin: 0 auto;
-            padding: 20px;
+            padding: 10px 5px;
         }
 
         .glass-card {
             background: linear-gradient(145deg, #111827, #1e293b);
             border: 1px solid #334155;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            border-radius: 24px;
-            padding: 40px;
+            border-radius: 20px;
+            padding: 25px 20px; /* مسافات أقل للجوال */
+        }
+
+        @media (min-width: 640px) {
+            .glass-card {
+                padding: 40px;
+                border-radius: 24px;
+            }
+            .main-container {
+                padding: 20px;
+            }
         }
 
         .scenario-label {
@@ -34,58 +53,59 @@
             background: #fbbf24;
             color: #000;
             font-weight: 900;
-            padding: 4px 15px;
-            border-radius: 8px;
-            font-size: 0.75rem;
-            margin-bottom: 20px;
-            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            margin-bottom: 15px;
         }
 
         .question-text {
-            font-size: 1.6rem; /* خط كبير ومريح جداً */
+            /* خط كبير في الكمبيوتر وأصغر قليلاً في الجوال */
+            font-size: clamp(1.15rem, 5vw, 1.6rem); 
             font-weight: 700;
-            line-height: 1.6;
+            line-height: 1.5;
             color: #f8fafc;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .option-btn {
             width: 100%;
             background: rgba(30, 41, 59, 0.5);
             border: 2px solid #334155;
-            border-radius: 16px;
-            padding: 20px 24px;
-            margin-bottom: 14px;
+            border-radius: 12px;
+            padding: 15px 18px;
+            margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: all 0.3s ease;
-            font-size: 1.2rem;
+            transition: all 0.2s ease;
+            font-size: clamp(0.95rem, 4vw, 1.15rem);
             font-weight: 600;
             color: #94a3b8;
             text-align: right;
+            cursor: pointer;
         }
 
-        .option-btn:hover {
+        .option-btn:hover, .option-btn:active {
             border-color: #fbbf24;
             background: rgba(251, 191, 36, 0.05);
             color: #fbbf24;
-            transform: translateX(-5px);
         }
 
         .option-num {
             font-family: sans-serif;
             opacity: 0.3;
             font-weight: 900;
-            font-size: 1.2rem;
+            font-size: 1rem;
+            margin-right: 10px;
         }
 
         .progress-container {
             width: 100%;
-            height: 8px;
+            height: 6px;
             background: #1e293b;
             border-radius: 10px;
-            margin-bottom: 40px;
+            margin-bottom: 25px;
             overflow: hidden;
         }
 
@@ -96,11 +116,11 @@
         }
 
         .result-bar-bg {
-            height: 12px;
+            height: 10px;
             background: #1e293b;
             border-radius: 20px;
             overflow: hidden;
-            margin-top: 8px;
+            margin-top: 6px;
         }
 
         .result-bar-fill {
@@ -109,8 +129,8 @@
         }
 
         .signature {
-            margin-top: 60px;
-            padding: 30px;
+            margin-top: 40px;
+            padding: 20px;
             text-align: center;
             border-top: 1px solid #1e293b;
         }
@@ -118,41 +138,40 @@
         .signature-badge {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             color: #fff;
             font-weight: 700;
-            font-size: 0.95rem;
-            letter-spacing: 0.5px;
+            font-size: 0.85rem;
+            opacity: 0.8;
         }
 
         .btn-start {
             background: #fbbf24;
             color: #070b14;
             font-weight: 900;
-            font-size: 1.3rem;
-            padding: 22px 45px;
-            border-radius: 18px;
+            font-size: 1.1rem;
+            padding: 18px 35px;
+            border-radius: 14px;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(251, 191, 36, 0.2);
         }
     </style>
 </head>
-<body class="p-4 sm:p-8">
+<body class="py-6 px-2">
 
     <div class="main-container">
         
         <!-- Welcome Screen -->
         <div id="welcome-screen" class="glass-card text-center">
-            <div class="mb-8 inline-block p-6 bg-yellow-500/10 rounded-full">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="mb-6 inline-block p-4 bg-yellow-500/10 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
             </div>
-            <h1 class="text-3xl sm:text-4xl font-black text-white mb-6">بوصلة العلاقات</h1>
-            <p class="text-slate-400 text-xl mb-10 leading-relaxed">
-                اكتشف نمط تعلقك العاطفي من خلال اختبار دقيق مبني على 68 معياراً نفسياً. افهم كيف تتعامل مع القرب، الاستقلال، والأمان.
+            <h1 class="text-2xl sm:text-3xl font-black text-white mb-4">بوصلة العلاقات</h1>
+            <p class="text-slate-400 text-lg mb-8 leading-relaxed">
+                اكتشف نمط تعلقك العاطفي من خلال اختبار دقيق مبني على 68 معياراً نفسياً.
             </p>
-            <button onclick="startQuiz()" class="btn-start w-full sm:w-auto">
+            <button onclick="startQuiz()" class="btn-start w-full">
                 ابدأ الاختبار الآن
             </button>
         </div>
@@ -164,9 +183,9 @@
             </div>
             
             <div class="glass-card">
-                <div class="flex justify-between items-center mb-6">
+                <div class="flex justify-between items-center mb-4">
                     <span id="category-name" class="scenario-label">جاري التحليل</span>
-                    <span id="q-counter" class="text-slate-500 font-bold font-mono text-lg">01 / 68</span>
+                    <span id="q-counter" class="text-slate-500 font-bold font-mono text-sm">01 / 68</span>
                 </div>
                 
                 <h2 id="question-text" class="question-text"></h2>
@@ -183,41 +202,41 @@
 
         <!-- Result Screen -->
         <div id="result-screen" class="hidden glass-card text-center">
-            <div class="scenario-label" style="background: #3b82f6; color: white;">تحليل النتيجة</div>
-            <h2 id="primary-style" class="text-4xl font-black text-white mb-4"></h2>
+            <div class="scenario-label" style="background: #3b82f6; color: white;">النتيجة</div>
+            <h2 id="primary-style" class="text-3xl font-black text-white mb-2"></h2>
             
-            <div id="confidence-badge" class="inline-block px-4 py-2 rounded-lg text-sm font-bold mb-10 bg-yellow-500/10 text-yellow-500">تحليل شامل لـ 68 نقطة</div>
+            <div id="confidence-badge" class="inline-block px-3 py-1 rounded-lg text-xs font-bold mb-6 bg-yellow-500/10 text-yellow-500">تحليل 68 نقطة</div>
 
-            <div class="grid gap-6 mb-10">
+            <div class="grid gap-4 mb-8">
                 <div class="text-right">
-                    <div class="flex justify-between text-base font-bold text-slate-400 mb-2"><span>النمط الآمن</span><span id="pct-safe">0%</span></div>
+                    <div class="flex justify-between text-xs font-bold text-slate-400 mb-1"><span>النمط الآمن</span><span id="pct-safe">0%</span></div>
                     <div class="result-bar-bg"><div id="bar-safe" class="result-bar-fill bg-green-500" style="width: 0%"></div></div>
                 </div>
                 <div class="text-right">
-                    <div class="flex justify-between text-base font-bold text-slate-400 mb-2"><span>النمط القلق</span><span id="pct-anxious">0%</span></div>
+                    <div class="flex justify-between text-xs font-bold text-slate-400 mb-1"><span>النمط القلق</span><span id="pct-anxious">0%</span></div>
                     <div class="result-bar-bg"><div id="bar-anxious" class="result-bar-fill bg-amber-500" style="width: 0%"></div></div>
                 </div>
                 <div class="text-right">
-                    <div class="flex justify-between text-base font-bold text-slate-400 mb-2"><span>النمط التجنبي</span><span id="pct-avoidant">0%</span></div>
+                    <div class="flex justify-between text-xs font-bold text-slate-400 mb-1"><span>النمط التجنبي</span><span id="pct-avoidant">0%</span></div>
                     <div class="result-bar-bg"><div id="bar-avoidant" class="result-bar-fill bg-blue-500" style="width: 0%"></div></div>
                 </div>
                 <div class="text-right">
-                    <div class="flex justify-between text-base font-bold text-slate-400 mb-2"><span>النمط المضطرب</span><span id="pct-disorganized">0%</span></div>
+                    <div class="flex justify-between text-xs font-bold text-slate-400 mb-1"><span>النمط المضطرب</span><span id="pct-disorganized">0%</span></div>
                     <div class="result-bar-bg"><div id="bar-disorganized" class="result-bar-fill bg-rose-500" style="width: 0%"></div></div>
                 </div>
             </div>
 
-            <div class="bg-slate-900/50 p-6 rounded-2xl border border-slate-800 text-right mb-8">
-                <p id="result-analysis" class="text-slate-300 leading-relaxed text-lg"></p>
+            <div class="bg-slate-900/50 p-5 rounded-xl border border-slate-800 text-right mb-6">
+                <p id="result-analysis" class="text-slate-300 leading-relaxed text-sm sm:text-base"></p>
             </div>
 
-            <button onclick="location.reload()" class="text-slate-500 hover:text-white font-bold transition-all text-sm underline decoration-yellow-500 underline-offset-8">إعادة الاختبار بالكامل</button>
+            <button onclick="location.reload()" class="text-slate-500 hover:text-white font-bold text-xs underline decoration-yellow-500 underline-offset-4">إعادة الاختبار</button>
         </div>
 
         <!-- Signature -->
         <footer class="signature">
             <div class="signature-badge">
-                <span class="opacity-40">تم التطوير بواسطة</span>
+                <span class="opacity-40">تطوير</span>
                 <span class="text-yellow-500">IntriMind - John Doe</span>
             </div>
         </footer>
@@ -225,7 +244,6 @@
     </div>
 
     <script>
-        // إعادة الأسئلة الـ 68 كاملة كما في النسخة الأصلية
         const questions = [
             // Safe Attachment Items
             { cat: "الأمان", text: "أجد أنه من السهل نسبياً التقرب من الآخرين عاطفياً.", type: "safe" },
@@ -284,7 +302,7 @@
             { cat: "التجنب", text: "أشعر بالقوة عندما لا أحتاج أحداً عاطفياً.", type: "avoidant" },
             { cat: "التجنب", text: "أقارن الشريك الحالي بـ 'شريك مثالي' خيالي للابتعاد عنه.", type: "avoidant" },
 
-            // Disorganized (Fearful-Avoidant) Items
+            // Disorganized Items
             { cat: "الاضطراب", text: "أريد علاقات وثيقة، لكنني أجد صعوبة في الثقة بالآخرين تماماً.", type: "disorganized" },
             { cat: "الاضطراب", text: "أقلق من أنني سأتأذى إذا سمحت لنفسي بالتعلق بشخص ما.", type: "disorganized" },
             { cat: "الاضطراب", text: "مشاعري تجاه الشريك تتأرجح بين الحب الشديد والكره المفاجئ.", type: "disorganized" },
