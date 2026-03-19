@@ -201,36 +201,74 @@
         </div>
 
         <!-- Result Screen -->
-        <div id="result-screen" class="hidden glass-card text-center">
-            <div class="scenario-label" style="background: #3b82f6; color: white;">النتيجة</div>
-            <h2 id="primary-style" class="text-3xl font-black text-white mb-2"></h2>
-            
-            <div id="confidence-badge" class="inline-block px-3 py-1 rounded-lg text-xs font-bold mb-6 bg-yellow-500/10 text-yellow-500">تحليل 68 نقطة</div>
+        <div id="result-screen" class="hidden" style="display:none; flex-direction:column; gap:16px;">
 
-            <div class="grid gap-4 mb-8">
-                <div class="text-right">
-                    <div class="flex justify-between text-xs font-bold text-slate-400 mb-1"><span>النمط الآمن</span><span id="pct-safe">0%</span></div>
-                    <div class="result-bar-bg"><div id="bar-safe" class="result-bar-fill bg-green-500" style="width: 0%"></div></div>
-                </div>
-                <div class="text-right">
-                    <div class="flex justify-between text-xs font-bold text-slate-400 mb-1"><span>النمط القلق</span><span id="pct-anxious">0%</span></div>
-                    <div class="result-bar-bg"><div id="bar-anxious" class="result-bar-fill bg-amber-500" style="width: 0%"></div></div>
-                </div>
-                <div class="text-right">
-                    <div class="flex justify-between text-xs font-bold text-slate-400 mb-1"><span>النمط التجنبي</span><span id="pct-avoidant">0%</span></div>
-                    <div class="result-bar-bg"><div id="bar-avoidant" class="result-bar-fill bg-blue-500" style="width: 0%"></div></div>
-                </div>
-                <div class="text-right">
-                    <div class="flex justify-between text-xs font-bold text-slate-400 mb-1"><span>النمط المضطرب</span><span id="pct-disorganized">0%</span></div>
-                    <div class="result-bar-bg"><div id="bar-disorganized" class="result-bar-fill bg-rose-500" style="width: 0%"></div></div>
+            <!-- Header Card -->
+            <div class="glass-card text-center">
+                <div class="scenario-label" style="background: #3b82f6; color: white;">نتيجتك</div>
+                <div id="primary-emoji" style="font-size:3rem; margin-bottom:8px;"></div>
+                <h2 id="primary-style" class="text-3xl font-black text-white mb-1"></h2>
+                <p id="primary-subtitle" class="text-slate-400 text-sm mb-5"></p>
+                <div class="inline-block px-3 py-1 rounded-lg text-xs font-bold bg-yellow-500/10 text-yellow-500">تحليل 68 نقطة</div>
+            </div>
+
+            <!-- Scores Card -->
+            <div class="glass-card">
+                <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-5 text-right">توزيع أنماط التعلق</p>
+                <div class="grid gap-4">
+                    <div class="text-right">
+                        <div class="flex justify-between text-xs font-bold mb-1"><span class="text-green-400">🟢 النمط الآمن</span><span id="pct-safe" class="text-green-400">0%</span></div>
+                        <div class="result-bar-bg"><div id="bar-safe" class="result-bar-fill bg-green-500" style="width: 0%"></div></div>
+                    </div>
+                    <div class="text-right">
+                        <div class="flex justify-between text-xs font-bold mb-1"><span class="text-amber-400">🟡 النمط القلق</span><span id="pct-anxious" class="text-amber-400">0%</span></div>
+                        <div class="result-bar-bg"><div id="bar-anxious" class="result-bar-fill bg-amber-500" style="width: 0%"></div></div>
+                    </div>
+                    <div class="text-right">
+                        <div class="flex justify-between text-xs font-bold mb-1"><span class="text-blue-400">🔵 النمط التجنبي</span><span id="pct-avoidant" class="text-blue-400">0%</span></div>
+                        <div class="result-bar-bg"><div id="bar-avoidant" class="result-bar-fill bg-blue-500" style="width: 0%"></div></div>
+                    </div>
+                    <div class="text-right">
+                        <div class="flex justify-between text-xs font-bold mb-1"><span class="text-rose-400">🔴 النمط المضطرب</span><span id="pct-disorganized" class="text-rose-400">0%</span></div>
+                        <div class="result-bar-bg"><div id="bar-disorganized" class="result-bar-fill bg-rose-500" style="width: 0%"></div></div>
+                    </div>
                 </div>
             </div>
 
-            <div class="bg-slate-900/50 p-5 rounded-xl border border-slate-800 text-right mb-6">
-                <p id="result-analysis" class="text-slate-300 leading-relaxed text-sm sm:text-base"></p>
+            <!-- Main Analysis Card -->
+            <div class="glass-card text-right">
+                <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">ماذا يعني هذا؟</p>
+                <div id="result-analysis" class="text-slate-300 leading-relaxed text-sm space-y-3"></div>
             </div>
 
-            <button onclick="location.reload()" class="text-slate-500 hover:text-white font-bold text-xs underline decoration-yellow-500 underline-offset-4">إعادة الاختبار</button>
+            <!-- Strengths & Challenges -->
+            <div class="glass-card text-right">
+                <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">نقاط قوتك</p>
+                <ul id="strengths-list" class="space-y-2 text-sm text-slate-300"></ul>
+            </div>
+
+            <div class="glass-card text-right">
+                <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">تحديات قد تواجهها</p>
+                <ul id="challenges-list" class="space-y-2 text-sm text-slate-300"></ul>
+            </div>
+
+            <!-- Tips Card -->
+            <div class="glass-card text-right">
+                <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">نصائح عملية لتطوير علاقاتك</p>
+                <ul id="tips-list" class="space-y-3 text-sm text-slate-300"></ul>
+            </div>
+
+            <!-- Secondary Pattern -->
+            <div id="secondary-card" class="glass-card text-right hidden">
+                <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">نمط ثانوي لاحظناه</p>
+                <p id="secondary-text" class="text-slate-400 text-sm leading-relaxed"></p>
+            </div>
+
+            <!-- Restart -->
+            <div class="text-center py-4">
+                <button onclick="location.reload()" class="text-slate-500 hover:text-white font-bold text-xs underline decoration-yellow-500 underline-offset-4">إعادة الاختبار</button>
+            </div>
+
         </div>
 
         <!-- Signature -->
@@ -365,30 +403,183 @@
             displayResults(res);
         }
 
+        const profileData = {
+            safe: {
+                emoji: "🌿",
+                subtitle: "شخص متوازن عاطفياً وقادر على بناء علاقات صحية",
+                description: [
+                    "أنت تمتلك <strong style='color:#f8fafc'>تعلقاً آمناً</strong> — وهو النمط الأكثر صحة وتوازناً عاطفياً. يعني هذا أنك قادر على الاقتراب من الآخرين دون أن تفقد نفسك، وتستطيع أن تحب دون خوف مفرط من الهجر أو رغبة في الهروب.",
+                    "الشخص الآمن يشعر بالراحة عند التعبير عن مشاعره، يثق بشريكه بشكل معقول، ويستطيع طلب الدعم عند الحاجة دون حرج. عند الخلاف، يميل للحوار الهادئ لا للانفجار أو الانسحاب."
+                ],
+                strengths: [
+                    "✓ قدرتك على الحب الصادق دون الغرق في القلق",
+                    "✓ موازنتك الطبيعية بين القرب والاستقلالية",
+                    "✓ سهولة التعبير عن مشاعرك بصدق وبدون خوف",
+                    "✓ ثقتك في نفسك وفي الآخرين بشكل معقول",
+                    "✓ قدرتك على حل النزاعات بهدوء وحكمة"
+                ],
+                challenges: [
+                    "› قد تجد صعوبة في فهم أشخاص ذوي أنماط أكثر تعقيداً",
+                    "› أحياناً قد تقلل من حساسيتك لمعاناة من حولك",
+                    "› الصدمات الكبيرة قد تهز هذا الاتزان مؤقتاً"
+                ],
+                tips: [
+                    "🤝 احرص على بناء بيئة داعمة لشريكك إن كان يعاني من نمط قلق أو تجنبي",
+                    "📖 وسّع فهمك لأنماط التعلق الأخرى لتكون أكثر تعاطفاً",
+                    "🌱 حافظ على هذا التوازن بممارسة التواصل الصريح والاستماع الفعّال",
+                    "💬 لا تأخذ ردود فعل شريكك دائماً كرسائل شخصية — كثير منها يعكس جرحه القديم"
+                ],
+                secondary: {
+                    anxious: "لاحظنا ميلاً ثانوياً للنمط القلق — قد تحتاج أحياناً لتطمين إضافي في المواقف الضاغطة.",
+                    avoidant: "لاحظنا ميلاً ثانوياً للنمط التجنبي — أحياناً تفضل مساحة أكبر من الآخرين وهذا طبيعي.",
+                    disorganized: "لاحظنا بعض ملامح التضارب العاطفي — قد يكون مرتبطاً بتجارب سابقة تستحق التأمل."
+                }
+            },
+            anxious: {
+                emoji: "🌊",
+                subtitle: "قلب كبير يحتاج إلى طمأنينة أكثر",
+                description: [
+                    "أنت تعيش <strong style='color:#f8fafc'>التعلق القلق</strong> — وهو نمط شائع جداً يتميز بحب عميق وخوف حقيقي في آن واحد. تشعر بأن العلاقات مهمة جداً لك، لكن هذه الأهمية نفسها تجعلك تخشى فقدانها باستمرار.",
+                    "عادةً ما تحتاج إلى تأكيدات متكررة بأن الشريك لا يزال يحبك. الانتظار لا يُطاق، والصمت المطوّل يُفسَّر أحياناً كإشارة خطر حتى لو لم يكن كذلك. هذا النمط غالباً يرجع لتجارب طفولة أو علاقات سابقة مؤلمة علّمتك أن الحب غير مضمون."
+                ],
+                strengths: [
+                    "✓ حساسيتك العاطفية العالية تجعلك شريكاً متعاطفاً ومهتماً",
+                    "✓ قدرتك على الحب العميق والانتماء الحقيقي للعلاقة",
+                    "✓ اهتمامك الصادق برفاهية الآخرين ومشاعرهم",
+                    "✓ حضورك الكامل في العلاقة ورغبتك في التقرب"
+                ],
+                challenges: [
+                    "› القلق المستمر قد يُرهقك ويُرهق شريكك معك",
+                    "› تفسير المواقف المحايدة على أنها رفض أو ابتعاد",
+                    "› صعوبة الشعور بالأمان دون تأكيد خارجي متكرر",
+                    "› الميل للمطالبة بالقرب بطريقة قد تُبعد الشريك أحياناً"
+                ],
+                tips: [
+                    "🧘 تعلم تهدئة قلقك الداخلي بدلاً من البحث عن التطمين الخارجي دائماً",
+                    "⏸️ قبل إرسال رسالة قلقة، اسأل نفسك: هل هذا ما يحدث فعلاً أم ما أخشاه؟",
+                    "📝 دوّن مخاوفك في يوميات لفهم متى تبدأ دورة القلق",
+                    "💬 أخبر شريكك باحتياجاتك بصراحة وهدوء بدلاً من التلميح أو الانتظار",
+                    "🔍 ابحث عن جذور هذا القلق مع معالج نفسي — الوعي بالجذور يُضعف سلطتها"
+                ],
+                secondary: {
+                    safe: "لاحظنا كذلك ملامح آمنة — تمتلك قدرات توازن حقيقية يمكنك تنميتها أكثر.",
+                    avoidant: "لاحظنا أيضاً ميلاً تجنبياً — قد تتأرجح أحياناً بين الاقتراب والابتعاد، وهو ما يستحق التأمل.",
+                    disorganized: "لاحظنا أيضاً بعض ملامح التضارب — أحياناً ترغب في القرب وتخشاه في الوقت نفسه."
+                }
+            },
+            avoidant: {
+                emoji: "🏔️",
+                subtitle: "مستقل بطبعه يحتاج مساحة ليحب بحرية",
+                description: [
+                    "أنت تمتلك <strong style='color:#f8fafc'>التعلق التجنبي</strong> — وهو نمط يجعلك تقدّر استقلاليتك كثيراً وتشعر بضغط حين يقترب الآخرون أكثر مما تريد. هذا لا يعني أنك لا تحب، بل أن طريقتك في الحب تختلف.",
+                    "الشخص التجنبي غالباً يشعر بعدم الراحة عند إظهار ضعفه، ويفضل حل مشاكله وحده. عندما تصبح العلاقة عميقة جداً، قد يشعر بحاجة للتراجع والمساحة — وهذا يربك الشريك أحياناً رغم أنه ليس رفضاً متعمداً."
+                ],
+                strengths: [
+                    "✓ استقلاليتك قوة حقيقية تجعلك متوازناً وغير مُثقل",
+                    "✓ هدوؤك في الأزمات وقدرتك على التفكير بعقلانية",
+                    "✓ احترامك لحدودك وحدود الآخرين",
+                    "✓ قدرتك على الاكتفاء الذاتي دون الاعتماد المفرط"
+                ],
+                challenges: [
+                    "› صعوبة التعبير عن المشاعر قد تخلق جداراً زجاجياً مع شريكك",
+                    "› الانسحاب عند الضغط قد يُفسَّر كرفض حتى لو لم يكن قصدك ذلك",
+                    "› قد تفوتك متعة العمق العاطفي في العلاقات",
+                    "› شريكك قد يشعر بالوحدة رغم وجودك الجسدي"
+                ],
+                tips: [
+                    "🗣️ تدرّب على التعبير عن مشاعر صغيرة يومياً — لا تنتظر لحظات كبيرة",
+                    "🤲 أخبر شريكك مبكراً حين تحتاج مساحة — هذا أفضل من الانسحاب الصامت",
+                    "💡 اسأل نفسك: هل أبتعد لأن الموقف مزعج فعلاً أم لأن القرب يخيفني؟",
+                    "🌱 ابدأ بخطوات صغيرة: شارك تفصيلة واحدة عن يومك كل يوم",
+                    "📚 اقرأ عن الجرح الأصلي خلف التجنب — فهمه يُساعد على تجاوزه"
+                ],
+                secondary: {
+                    safe: "لاحظنا كذلك ملامح آمنة — لديك قدرة حقيقية على التوازن يمكن تنميتها.",
+                    anxious: "لاحظنا أيضاً ميلاً قلقياً ثانوياً — قد تجد نفسك أحياناً تتردد بين الرغبة في القرب والحاجة للمسافة.",
+                    disorganized: "لاحظنا أيضاً بعض ملامح التضارب — أحياناً يكون الابتعاد دفاعاً لا خياراً حراً."
+                }
+            },
+            disorganized: {
+                emoji: "🌪️",
+                subtitle: "روح تريد الحب وتخشاه في الوقت نفسه",
+                description: [
+                    "أنت تعيش <strong style='color:#f8fafc'>التعلق المضطرب</strong> — وهو النمط الأكثر تعقيداً، ويعكس صراعاً حقيقياً بين رغبتين متعارضتين: أن تُحَب وأن تكون بأمان في آن واحد.",
+                    "أحياناً تشعر بشوق شديد للقرب، وأحياناً أخرى يخيفك هذا القرب نفسه فتبتعد. هذا التذبذب ليس ضعفاً في شخصيتك، بل هو غالباً استجابة مكتسبة لتجارب مبكرة جعلت الحب مرتبطاً بالألم أو الخوف. <strong style='color:#f8fafc'>والوعي به هو أول خطوات التغيير.</strong>"
+                ],
+                strengths: [
+                    "✓ وعيك الذاتي العميق وقدرتك على رؤية تناقضاتك بصدق",
+                    "✓ حساسيتك الشديدة تجعلك شخصاً ذا عمق نادر",
+                    "✓ رغبتك الحقيقية في التغيير والنمو — وهي تكفيك",
+                    "✓ قدرتك على التعاطف مع معاناة الآخرين بعمق"
+                ],
+                challenges: [
+                    "› التذبذب بين الاقتراب والابتعاد يُربك الشريك ويُربكك أنت أيضاً",
+                    "› صعوبة الثقة حتى بمن يستحقها فعلاً",
+                    "› ردود فعل أحياناً غير متناسبة مع حجم الموقف",
+                    "› التعب العاطفي من الصراع الداخلي المستمر"
+                ],
+                tips: [
+                    "🧠 العلاج النفسي مفيد جداً لهذا النمط — لا تتردد في طلب الدعم المتخصص",
+                    "📓 دوّن مشاعرك لحظة بلحظة لتتعرف على الأنماط المتكررة في ردود أفعالك",
+                    "🛡️ تعلم تقنيات تنظيم المشاعر مثل التنفس العميق والتأصيل الحسي",
+                    "💬 أخبر من تثق به بما تشعر — الاعتراف بالتناقض يُخفف وطأته",
+                    "🌟 تذكر: هذا النمط قابل للتغيير تماماً — الوعي به هو الخطوة الأولى والأهم"
+                ],
+                secondary: {
+                    safe: "لاحظنا ملامح آمنة كذلك — هذا يدل على قدرتك الحقيقية على بناء أمان عاطفي.",
+                    anxious: "لاحظنا ميلاً قلقياً ثانوياً — جزء منك يبحث بشدة عن الطمأنينة حتى وهو يهرب منها.",
+                    avoidant: "لاحظنا ميلاً تجنبياً ثانوياً — الابتعاد أحياناً يكون درعاً دفاعياً لحماية النفس من الألم."
+                }
+            }
+        };
+
         function displayResults(res) {
             document.getElementById('question-screen').classList.add('hidden');
-            document.getElementById('result-screen').classList.remove('hidden');
-            
-            ['safe', 'anxious', 'avoidant', 'disorganized'].forEach(t => {
-                document.getElementById(`pct-${t}`).innerText = res[t] + "%";
-                document.getElementById(`bar-${t}`).style.width = res[t] + "%";
-            });
+            const rs = document.getElementById('result-screen');
+            rs.classList.remove('hidden');
+            rs.style.display = 'flex';
 
-            let primary = 'safe';
-            if (res.anxious > res[primary]) primary = 'anxious';
-            if (res.avoidant > res[primary]) primary = 'avoidant';
-            if (res.disorganized > res[primary]) primary = 'disorganized';
+            // Animate bars after short delay
+            setTimeout(() => {
+                ['safe', 'anxious', 'avoidant', 'disorganized'].forEach(t => {
+                    document.getElementById(`pct-${t}`).innerText = res[t] + "%";
+                    document.getElementById(`bar-${t}`).style.width = res[t] + "%";
+                });
+            }, 300);
 
+            // Find primary & secondary
+            const sorted = Object.entries(res).sort((a, b) => b[1] - a[1]);
+            const primary = sorted[0][0];
+            const secondary = sorted[1][0];
+            const data = profileData[primary];
             const titles = { safe: "النمط الآمن", anxious: "النمط القلق", avoidant: "النمط التجنبي", disorganized: "النمط المضطرب" };
-            const analyses = {
-                safe: "أنت تمتلك أساساً قوياً من الأمان العاطفي. تستطيع الموازنة بين الحاجة للقرب والحفاظ على استقلاليتك، وتثق في نفسك وفي الآخرين.",
-                anxious: "نمطك يميل للقلق والحساسية العالية تجاه أي تغير في القرب العاطفي. تحتاج لتطمين مستمر وتخشى الهجر، مما قد يرهقك عاطفياً.",
-                avoidant: "تميل للحفاظ على مسافة أمان عاطفية وتعتبر الاعتماد على الآخرين ضعفاً. تقدس استقلاليتك وقد تبتعد عندما تصبح العلاقة جدية.",
-                disorganized: "نمطك يتسم بصراع داخلي بين الرغبة الشديدة في القرب والخوف الشديد من الأذى. هذا يسبب تقلبات عاطفية وصعوبة في الشعور بالأمان الاستقرار."
-            };
 
+            document.getElementById('primary-emoji').innerText = data.emoji;
             document.getElementById('primary-style').innerText = titles[primary];
-            document.getElementById('result-analysis').innerText = analyses[primary];
+            document.getElementById('primary-subtitle').innerText = data.subtitle;
+
+            // Analysis paragraphs
+            document.getElementById('result-analysis').innerHTML = data.description
+                .map(p => `<p>${p}</p>`).join('');
+
+            // Strengths
+            document.getElementById('strengths-list').innerHTML = data.strengths
+                .map(s => `<li style="display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid #1e293b"><span style="color:#4ade80;flex-shrink:0">${s.slice(0,1)}</span><span>${s.slice(2)}</span></li>`).join('');
+
+            // Challenges
+            document.getElementById('challenges-list').innerHTML = data.challenges
+                .map(c => `<li style="display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid #1e293b"><span style="color:#f87171;flex-shrink:0">${c.slice(0,1)}</span><span>${c.slice(2)}</span></li>`).join('');
+
+            // Tips
+            document.getElementById('tips-list').innerHTML = data.tips
+                .map(t => `<li style="background:rgba(251,191,36,0.05);border:1px solid rgba(251,191,36,0.1);border-radius:12px;padding:12px 14px;">${t}</li>`).join('');
+
+            // Secondary pattern
+            if (sorted[1][1] > 35 && data.secondary && data.secondary[secondary]) {
+                document.getElementById('secondary-card').classList.remove('hidden');
+                document.getElementById('secondary-text').innerText = data.secondary[secondary];
+            }
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
